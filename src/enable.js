@@ -45,6 +45,10 @@ export default function (element, options) {
 
   const canvas = document.createElement('canvas');
 
+  canvas.style.position = 'absolute';
+  canvas.style.top = '50%';
+  canvas.style.left = '50%';
+
   element.appendChild(canvas);
 
   const enabledElement = {

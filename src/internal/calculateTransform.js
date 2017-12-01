@@ -7,11 +7,11 @@ import { Transform } from './transform.js';
  * @param {Number} [scale] The viewport scale
  * @return {Transform} The current transform
  */
-export default function (enabledElement, scale) {
+export default function (enabledElement, scale = 1) {
 
   const transform = new Transform();
 
-  transform.translate(enabledElement.canvas.width / 2, enabledElement.canvas.height / 2);
+  transform.translate(-enabledElement.canvas.width / 2, -enabledElement.canvas.height / 2);
 
   // Apply the rotation before scaling for non square pixels
   const angle = enabledElement.viewport.rotation;
@@ -44,22 +44,10 @@ export default function (enabledElement, scale) {
     transform.rotate(angle * Math.PI / 180);
   }
 
-  if (scale !== undefined) {
-    // Apply the font scale
-    transform.scale(scale, scale);
-  }
+  const xScale = (enabledElement.viewport.hflip ? -1 : 1) * scale;
+  const yScale = (enabledElement.viewport.vflip ? -1 : 1) * scale;
 
-  // Apply Flip if required
-  if (enabledElement.viewport.hflip) {
-    transform.scale(-1, 1);
-  }
-
-  if (enabledElement.viewport.vflip) {
-    transform.scale(1, -1);
-  }
-
-  // Translate the origin back to the corner of the image so the event handlers can draw in image coordinate system
-  transform.translate(-enabledElement.image.width / 2, -enabledElement.image.height / 2);
+  transform.scale(xScale, yScale);
 
   return transform;
 }

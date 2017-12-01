@@ -1,11 +1,11 @@
 /**
  * Creates a new viewport object containing default values for the image and canvas
  *
- * @param {HTMLElement} canvas A Canvas DOM element
- * @param {Image} image A Cornerstone Image Object
  * @returns {Viewport} viewport object
  */
-export default function (canvas, image) {
+export default function (enabledElement) {
+  const { canvas, image, element } = enabledElement;
+
   if (canvas === undefined) {
     throw new Error('getDefaultViewport: parameter canvas must not be undefined');
   }
@@ -34,8 +34,8 @@ export default function (canvas, image) {
   }
 
   // Fit image to window
-  const verticalScale = canvas.height / image.rows;
-  const horizontalScale = canvas.width / image.columns;
+  const verticalScale = element.offsetHeight / image.rows;
+  const horizontalScale = element.offsetWidth / image.columns;
   const scale = Math.min(horizontalScale, verticalScale);
 
   return {

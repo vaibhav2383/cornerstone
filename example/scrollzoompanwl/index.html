@@ -45,7 +45,7 @@
          onselectstart='return false;'
          onmousedown='return false;'>
         <div id="dicomImage" oncontextmenu="return false"
-             style="width:512px;height:512px;top:0px;left:0px; position:absolute">
+             style="width:512px;height:512px;top:0px;left:0px; position:absolute; background: black; overflow: hidden;">
         </div>
         <div id="topleft" style="position: absolute;top:0px; left:0px">
             Patient Name
@@ -147,21 +147,18 @@
                     lastX = e.pageX;
                     lastY = e.pageY;
 
-                    if (mouseButton == 1) {
-                        var viewport = cornerstone.getViewport(element);
-                        viewport.voi.windowWidth += (deltaX / viewport.scale);
-                        viewport.voi.windowCenter += (deltaY / viewport.scale);
+                    var viewport = cornerstone.getViewport(element);
+
+                    if (mouseButton === 1) {
+                        viewport.voi.windowWidth += deltaX;
+                        viewport.voi.windowCenter += deltaY;
                         cornerstone.setViewport(element, viewport);
                         $('#bottomleft').text("WW/WL:" + Math.round(viewport.voi.windowWidth) + "/" + Math.round(viewport.voi.windowCenter));
-                    }
-                    else if (mouseButton == 2) {
-                        var viewport = cornerstone.getViewport(element);
-                        viewport.translation.x += (deltaX / viewport.scale);
-                        viewport.translation.y += (deltaY / viewport.scale);
+                    } else if (mouseButton === 2) {
+                        viewport.translation.x += deltaX;
+                        viewport.translation.y += deltaY;
                         cornerstone.setViewport(element, viewport);
-                    }
-                    else if (mouseButton == 3) {
-                        var viewport = cornerstone.getViewport(element);
+                    } else if (mouseButton === 3) {
                         viewport.scale += (deltaY / 100);
                         cornerstone.setViewport(element, viewport);
                         $('#bottomright').text("Zoom: " + viewport.scale.toFixed(2) + "x");
