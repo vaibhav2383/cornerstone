@@ -1,3 +1,7 @@
+---
+description: Cornerstone installation guide - How to use Cornerstone in your project.
+---
+
 # Installation
 
 ### Direct Download / CDN
@@ -17,7 +21,7 @@
 npm install cornerstone-core --save
 ```
 
-When used with a module system, you can import `cornerstoneTools` like this:
+When used with a module system, you can import `cornerstone` like this:
 
 ``` js
 import * as cornerstone from 'cornerstone-core'
